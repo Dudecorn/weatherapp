@@ -6,7 +6,7 @@ services:
     ports:
       - 9000:9000
     environment:
-      - FACEBOOK_APP_ID=39407e1c65185b097d80353ca7abbf8e
+      - APPID=${APPID}
 
   frontend:
     build: frontend

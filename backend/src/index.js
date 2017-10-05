@@ -1,6 +1,6 @@
 const debug = require('debug')('weathermap');
 
-const id = process.env.FACEBOOK_APP_ID;
+const id = process.env.APPID;
 
 const Koa = require('koa');
 const router = require('koa-router')();
