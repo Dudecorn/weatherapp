@@ -1,5 +1,5 @@
 const debug = require('debug')('weathermap');
-const id = ""
+const id = "39407e1c65185b097d80353ca7abbf8e";
 
 const Koa = require('koa');
 const router = require('koa-router')();
