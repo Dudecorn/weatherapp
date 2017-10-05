@@ -5,6 +5,8 @@ services:
     build: backend
     ports:
       - 9000:9000
+    environment:
+      - FACEBOOK_APP_ID=39407e1c65185b097d80353ca7abbf8e
 
   frontend:
     build: frontend
@@ -12,4 +14,3 @@ services:
       - 8000:8000
     environment:
       - ENDPOINT=http://localhost:9000/api
-      - FACEBOOK_APP_ID=${FACEBOOK_APP_ID}
