@@ -15,17 +15,6 @@ const getWeatherFromApi = async () => {
 };
 
 
-class Report extends React.Component {
-  return(
-    render() {
-      <p>
-        {getWeatherFromApi}
-      </p>
-    }
-  );
-}
-
-
 class Weather extends React.Component {
   constructor(props) {
     super(props);
@@ -44,12 +33,9 @@ class Weather extends React.Component {
     const { icon } = this.state;
 
     return (
-      <div>
         <div className="icon">
           { icon && <img src={`/img/${icon}.svg`} /> }
         </div>
-        <Report />
-      </div>
     );
   }
 }
