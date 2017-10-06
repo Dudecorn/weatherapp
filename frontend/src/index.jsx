@@ -40,9 +40,6 @@ function codeLatLng(lat, lng) {
        console.log(
          results
        );
-      //find country name
-
-      //city data
 
       } else {
         alert("No results found");
