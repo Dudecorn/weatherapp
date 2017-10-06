@@ -13,12 +13,15 @@ body{
 }
 
 #icon {
-  width: 80px;
-  float: right
+  margin: auto;
+  width: auto;
+  max-height: 500px;
 }
 
 #report {
+  position: absolute;
   font-size: 20px;
   font-weight: 300;
   font-family: 'lato', sans-serif;
+  margin: auto;
 }

@@ -1,62 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+var lat;
+var lng;
 
-//==============GOOGLE API==============//
-var geocoder;
-var kaupunki;
+//====================GETPOS
 
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-}
-//Get the latitude and the longitude;
-function successFunction(position) {
-  var lat = position.coords.latitude;
-  var lng = position.coords.longitude;
-  codeLatLng(lat, lng)
-}
-
-function errorFunction(){
-  alert("Geocoder failed");
-}
-
-function initialize() {
-  geocoder = new google.maps.Geocoder();
-
-
-
-}
-
-function codeLatLng(lat, lng) {
-  var latlng = new google.maps.LatLng(lat, lng);
-  geocoder.geocode({'latLng': latlng}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-    console.log(results)
-      if (results[1]) {
-       //formatted address
-       kaupunki = results[3].address_components[0].long_name;
-       process.env.CITY = kaupunki;
-       //alert(kaupunki);
-       console.log(
-         results
-       );
-
-      } else {
-        alert("No results found");
-      }
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
     } else {
-      alert("Geocoder failed due to: " + status);
+        alert("Geolocation is not supported by this browser.");
     }
-  });
 }
+
+function showPosition(position){
+  lat = position.coords.latitude;
+  lng = position.coords.longitude;
+}
+
+//====================GETPOS
+
+getLocation();
 
 const baseURL = process.env.ENDPOINT;
-
 var weatherReport;
 
 const getWeatherFromApi = async () => {
   try {
-    const response = await fetch(`${baseURL}/weather`);
+    const response = await fetch(`${baseURL}/weather?lat=${lat}&lng=${lng}`);
     return response.json();
   } catch (error) {
     console.error(error);
@@ -64,8 +36,6 @@ const getWeatherFromApi = async () => {
 
   return {};
 };
-//==============GOOGLE API==============//
-
 
 class Weather extends React.Component {
   constructor(props) {
@@ -85,6 +55,7 @@ class Weather extends React.Component {
     this.setState({weather: weather.main});
     console.log(weather);
   }
+
 
   render() {
     const { icon } = this.state;
