@@ -1,33 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-var lat;
-var lng;
 
 //====================GETPOS
 
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        alert("Geolocation is not supported by this browser.");
-    }
+var getPosition = async function (options) {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject, options);
+  });
 }
 
-function showPosition(position){
-  lat = position.coords.latitude;
-  lng = position.coords.longitude;
-}
 
 //====================GETPOS
-
-getLocation();
 
 const baseURL = process.env.ENDPOINT;
 var weatherReport;
 
 const getWeatherFromApi = async () => {
   try {
+    const coords = await getPosition();
+    var lat = coords.coords.latitude;
+    var lng = coords.coords.longitude;
+
     const response = await fetch(`${baseURL}/weather?lat=${lat}&lng=${lng}`);
     return response.json();
   } catch (error) {
@@ -55,8 +49,6 @@ class Weather extends React.Component {
     this.setState({weather: weather.main});
     console.log(weather);
   }
-
-
   render() {
     const { icon } = this.state;
     return (
