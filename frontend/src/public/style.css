@@ -20,7 +20,8 @@ body{
 
 #report {
   position: absolute;
-  top: -250px;
+  width: 100%;
+  top: 200px;
   font-size: 20px;
   font-weight: 300;
   font-family: 'lato', sans-serif;
