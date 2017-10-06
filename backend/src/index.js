@@ -2,6 +2,9 @@ const debug = require('debug')('weathermap');
 
 const id = process.env.APPID;
 
+var lat;
+var lng;
+
 const Koa = require('koa');
 const router = require('koa-router')();
 const fetch = require('node-fetch');
@@ -18,13 +21,16 @@ const app = new Koa();
 app.use(cors());
 
 const fetchWeather = async () => {
-  const endpoint = `${mapURI}/weather?q=${targetCity}&appid=${appId}&`;
+  const endpoint = `${mapURI}/weather?lat=${lat}&lon=${lng}&APPID=${appId}`;
+  console.log("Haku coords:" + lat + " ja " + lng);
   const response = await fetch(endpoint);
 
   return response ? response.json() : {}
 };
 
 router.get('/api/weather', async ctx => {
+  lat = ctx.query.lat;
+  lng = ctx.query.lng;
   const weatherData = await fetchWeather();
 
   ctx.type = 'application/json; charset=utf-8';
