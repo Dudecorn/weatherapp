@@ -30,7 +30,7 @@ const fetchWeather = async () => {
 
 router.get('/api/weather', async ctx => {
   lat = ctx.query.lat;
-  lng = ctx.query.lat;
+  lng = ctx.query.lng;
   const weatherData = await fetchWeather();
 
   ctx.type = 'application/json; charset=utf-8';
